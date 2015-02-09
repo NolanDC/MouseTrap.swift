@@ -16,6 +16,7 @@ class MouseTrapTests: XCTestCase {
     
     //var mouseTrap = MouseTrap()
     var mouseTrap = MouseTrap()
+    var fKeyEvent = NSEvent.keyEventWithType(NSEventType.KeyDown, location: CGPointZero, modifierFlags: NSEventModifierFlags.allZeros, timestamp: 1.0, windowNumber: 0, context: nil, characters: "f", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 3)
 
     override func setUp() {
         super.setUp()
@@ -32,24 +33,36 @@ class MouseTrapTests: XCTestCase {
         XCTAssert(true, "Pass")
     }
     
-    func testBindsToCommands() {
+    func testBind() {
         var triggered = false
         
         mouseTrap.bind("f", handler: { () -> Void in
             triggered = true
         })
         
-        var ev = NSEvent.keyEventWithType(NSEventType.KeyDown, location: CGPointZero, modifierFlags: NSEventModifierFlags.allZeros, timestamp: 1.0, windowNumber: 0, context: nil, characters: "f", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 3)
-        
-        mouseTrap.keyDown(ev)
+        mouseTrap.keyDown(fKeyEvent)
         
         expect{triggered}.toEventually(beTruthy())
+    }
+    
+    
+    func testUnbind() {
+        var triggered = false
+        
+        mouseTrap.bind("f", handler: { () -> Void in
+            triggered = true
+        })
+        mouseTrap.unbind("f")
+        
+        mouseTrap.keyDown(fKeyEvent)
+        
+        expect{triggered}.toEventually(beFalsy())
     }
     
     func testModifierKeys() {
         var triggered = false
         
-        mouseTrap.bind("command f", handler: { () -> Void in
+        mouseTrap.bind("f", handler: { () -> Void in
             triggered = true
         })
         
@@ -59,12 +72,4 @@ class MouseTrapTests: XCTestCase {
         
         expect{triggered}.toEventually(beTruthy())
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
