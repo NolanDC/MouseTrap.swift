@@ -6,11 +6,15 @@
 //  Copyright (c) 2015 Nolan Carroll. All rights reserved.
 //
 
-import Cocoa
 import XCTest
+import Quick
+import Nimble
 
 class MouseTrapTests: XCTestCase {
     
+    //var mouseTrap = MouseTrap()
+    var mouseTrap = MouseTrap()
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
