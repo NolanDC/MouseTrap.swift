@@ -11,6 +11,7 @@ import Cocoa
 class MouseTrap {
     
     var pressedKeys = [String : Bool]()
+    
     typealias fn = () -> ()
     var boundHandlers = [String : fn]()
     
@@ -22,7 +23,6 @@ class MouseTrap {
     func keyDown(event: NSEvent!) -> NSEvent! {
         if let char = event.characters {
             self.pressedKeys[char] = true
-            println("char: \(char)")
         }
         
         runHandlers(modifiers(event))
@@ -37,6 +37,8 @@ class MouseTrap {
         return event
     }
     
+    
+    // Returns an array of strings representing the currently-pressed modifier keys
     func modifiers(event: NSEvent!) -> [String] {
         var mods = [String]()
         
@@ -52,9 +54,14 @@ class MouseTrap {
             mods.append("function")
         }
         
+        if (event.modifierFlags & NSEventModifierFlags.AlternateKeyMask) != nil {
+            mods.append("alt")
+        }
+        
         return mods
     }
     
+    // Given an array of modifer keys, runs the appropriate handlers
     func runHandlers(mods : [String]) {
         var keys = pressedKeys.keys.array
         var all = mods + keys
@@ -62,12 +69,12 @@ class MouseTrap {
         for (keys, handler) in boundHandlers {
             var keyArray = keys.componentsSeparatedByString(" ").filter { find(all,$0) == nil }
             if keyArray.isEmpty {
-                println("got here yooooo")
                 handler()
             }
         }
     }
     
+    // Returns an array of strings representing all pressed characters and modifier keys
     func allKeysForEvent(event: NSEvent!) -> [String] {
         return pressedKeys.keys.array + modifiers(event)
     }
@@ -80,5 +87,10 @@ class MouseTrap {
     // Unbinds all handlers attached to the specified key combo
     func unbind(keys: String) {
         boundHandlers.removeValueForKey(keys)
+    }
+    
+    // Unbinds all bound handlers
+    func unbindAll() {
+        boundHandlers.removeAll(keepCapacity: false)
     }
 }

@@ -42,6 +42,7 @@ class MouseTrapTests: XCTestCase {
         
         mouseTrap.keyDown(fKeyEvent)
         
+        expect(self.mouseTrap.pressedKeys["f"]).to(beTruthy())
         expect{triggered}.toEventually(beTruthy())
     }
     
@@ -56,7 +57,21 @@ class MouseTrapTests: XCTestCase {
         
         mouseTrap.keyDown(fKeyEvent)
         
-        expect{triggered}.toEventually(beFalsy())
+        expect(self.mouseTrap.boundHandlers["f"]).to(beNil())
+        expect(triggered).to(beFalsy())
+    }
+    
+    func testUnbindAll() {
+        var triggered = false
+        
+        mouseTrap.bind("f", handler: { () -> Void in
+            triggered = true
+        })
+        
+        mouseTrap.unbindAll()
+        
+        expect(self.mouseTrap.boundHandlers["f"]).to(beNil())
+        expect(triggered).to(beFalsy())
     }
     
     func testModifierKeys() {
