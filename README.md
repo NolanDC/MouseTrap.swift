@@ -1,4 +1,4 @@
-MouseTrap.swift is a Swift version of the popular [mousetrap.js](https://github.com/ccampbell/mousetrap) library.
+MouseTrap.swift is a Swift version of the popular [mousetrap.js](https://github.com/ccampbell/mousetrap) library for use in OSX development. MouseTrap.swift allows you to easily bind custom handlers to NSEvent keyboard events.
 
 ## Installation
 I am currently new to the Swift / XCode development environment, and am figuring out a more official way to package this library. For now, just copy the MouseTrap.swift file into your project.
