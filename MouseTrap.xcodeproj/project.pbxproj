@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C53CFE741A885ADE004C0960 /* MouseTrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54FCD9B1A884B3800BC5139 /* MouseTrapTests.swift */; };
 		C54FCD8F1A884B3700BC5139 /* MouseTrap.h in Headers */ = {isa = PBXBuildFile; fileRef = C54FCD8E1A884B3700BC5139 /* MouseTrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C54FCDC91A884C0D00BC5139 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54FCDBE1A884BEC00BC5139 /* Quick.framework */; };
 		C54FCDCB1A884C3D00BC5139 /* MouseTrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54FCDCA1A884C3D00BC5139 /* MouseTrap.swift */; };
-		C54FCDD41A884EB200BC5139 /* MouseTrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54FCD9B1A884B3800BC5139 /* MouseTrapTests.swift */; };
 		C54FCDD71A884F4000BC5139 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54FCDB01A884BEC00BC5139 /* Nimble.framework */; };
 		C54FCDD91A884F9D00BC5139 /* MouseTrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54FCDCA1A884C3D00BC5139 /* MouseTrap.swift */; };
 /* End PBXBuildFile section */
@@ -404,8 +404,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C53CFE741A885ADE004C0960 /* MouseTrapTests.swift in Sources */,
 				C54FCDD91A884F9D00BC5139 /* MouseTrap.swift in Sources */,
-				C54FCDD41A884EB200BC5139 /* MouseTrapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +589,7 @@
 				C54FCDA11A884B3800BC5139 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C54FCDA21A884B3800BC5139 /* Build configuration list for PBXNativeTarget "MouseTrapTests" */ = {
 			isa = XCConfigurationList;
@@ -597,6 +598,7 @@
 				C54FCDA41A884B3800BC5139 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

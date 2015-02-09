@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Nolan Carroll. All rights reserved.
 //
 
+import Foundation
+import Cocoa
 import XCTest
 import Quick
 import Nimble
@@ -28,6 +30,19 @@ class MouseTrapTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
+    }
+    
+    func testBindsToCommands() {
+        var triggered = false
+        mouseTrap.bind("f", handler: { () -> Void in
+            triggered = true
+        })
+        
+        var ev = NSEvent.keyEventWithType(NSEventType.KeyDown, location: CGPointZero, modifierFlags: NSEventModifierFlags.allZeros, timestamp: 1.0, windowNumber: 0, context: nil, characters: "f", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 3)
+        
+        mouseTrap.keyDown(ev)
+        
+        expect{triggered}.toEventually(beTruthy())
     }
     
     func testPerformanceExample() {

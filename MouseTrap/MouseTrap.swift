@@ -11,6 +11,8 @@ import Cocoa
 class MouseTrap {
     
     var pressedKeys = [String : Bool]()
+    typealias fn = () -> ()
+    var boundHandlers = [String : fn]()
     
     init() {
         NSEvent.addLocalMonitorForEventsMatchingMask(NSEventMask.KeyDownMask, handler: keyDown)
@@ -20,7 +22,11 @@ class MouseTrap {
     func keyDown(event: NSEvent!) -> NSEvent! {
         if let char = event.characters {
             self.pressedKeys[char] = true
+            println("char: \(char)")
         }
+        
+        runHandlers(modifiers(event))
+        
         return event
     }
     
@@ -46,7 +52,22 @@ class MouseTrap {
             mods.append("function")
         }
         
+        //NSEvent.keyEventWithType(<#type: NSEventType#>, location: <#NSPoint#>, modifierFlags: <#NSEventModifierFlags#>, timestamp: <#NSTimeInterval#>, windowNumber: <#Int#>, context: <#NSGraphicsContext?#>, characters: <#String#>, charactersIgnoringModifiers: <#String#>, isARepeat: <#Bool#>, keyCode: <#UInt16#>)
+        
         return mods
+    }
+    
+    func runHandlers(mods : [String]) {
+        var keys = pressedKeys.keys.array
+        var all = mods + keys
+        
+        for (keys, handler) in boundHandlers {
+            var keyArray = keys.componentsSeparatedByString(" ").filter { find(all,$0) == nil }
+            if keyArray.isEmpty {
+                println("got here yooooo")
+                handler()
+            }
+        }
     }
     
     func allKeysForEvent(event: NSEvent!) -> [String] {
@@ -54,12 +75,12 @@ class MouseTrap {
     }
     
     // Calls the handler method when the
-    func bind(keys: String, handler: () -> AnyObject?) {
-        
+    func bind(keys: String, handler: () -> Void) {
+        boundHandlers[keys] = handler
     }
     
     // Unbinds all handlers attached to the specified key combo
     func unbind(keys: String) {
-        
+        boundHandlers.removeValueForKey(keys)
     }
 }
