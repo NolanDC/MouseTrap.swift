@@ -34,11 +34,26 @@ class MouseTrapTests: XCTestCase {
     
     func testBindsToCommands() {
         var triggered = false
+        
         mouseTrap.bind("f", handler: { () -> Void in
             triggered = true
         })
         
         var ev = NSEvent.keyEventWithType(NSEventType.KeyDown, location: CGPointZero, modifierFlags: NSEventModifierFlags.allZeros, timestamp: 1.0, windowNumber: 0, context: nil, characters: "f", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 3)
+        
+        mouseTrap.keyDown(ev)
+        
+        expect{triggered}.toEventually(beTruthy())
+    }
+    
+    func testModifierKeys() {
+        var triggered = false
+        
+        mouseTrap.bind("command f", handler: { () -> Void in
+            triggered = true
+        })
+        
+        var ev = NSEvent.keyEventWithType(NSEventType.KeyDown, location: CGPointZero, modifierFlags: NSEventModifierFlags.CommandKeyMask, timestamp: 1.0, windowNumber: 0, context: nil, characters: "f", charactersIgnoringModifiers: "", isARepeat: false, keyCode: 3)
         
         mouseTrap.keyDown(ev)
         

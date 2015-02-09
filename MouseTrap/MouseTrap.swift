@@ -52,8 +52,6 @@ class MouseTrap {
             mods.append("function")
         }
         
-        //NSEvent.keyEventWithType(<#type: NSEventType#>, location: <#NSPoint#>, modifierFlags: <#NSEventModifierFlags#>, timestamp: <#NSTimeInterval#>, windowNumber: <#Int#>, context: <#NSGraphicsContext?#>, characters: <#String#>, charactersIgnoringModifiers: <#String#>, isARepeat: <#Bool#>, keyCode: <#UInt16#>)
-        
         return mods
     }
     
