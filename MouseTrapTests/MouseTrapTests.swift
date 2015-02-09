@@ -28,11 +28,6 @@ class MouseTrapTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
     func testBind() {
         var triggered = false
         
@@ -43,9 +38,8 @@ class MouseTrapTests: XCTestCase {
         mouseTrap.keyDown(fKeyEvent)
         
         expect(self.mouseTrap.pressedKeys["f"]).to(beTruthy())
-        expect{triggered}.toEventually(beTruthy())
+        expect(triggered).to(beTruthy())
     }
-    
     
     func testUnbind() {
         var triggered = false
@@ -77,7 +71,7 @@ class MouseTrapTests: XCTestCase {
     func testModifierKeys() {
         var triggered = false
         
-        mouseTrap.bind("f", handler: { () -> Void in
+        mouseTrap.bind("command f", handler: { () -> Void in
             triggered = true
         })
         
@@ -85,6 +79,6 @@ class MouseTrapTests: XCTestCase {
         
         mouseTrap.keyDown(ev)
         
-        expect{triggered}.toEventually(beTruthy())
+        expect(triggered).to(beTruthy())
     }
 }
