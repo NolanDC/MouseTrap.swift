@@ -64,6 +64,8 @@ class MouseTrapTests: XCTestCase {
         
         mouseTrap.unbindAll()
         
+        mouseTrap.keyDown(fKeyEvent)
+        
         expect(self.mouseTrap.boundHandlers["f"]).to(beNil())
         expect(triggered).to(beFalsy())
     }
